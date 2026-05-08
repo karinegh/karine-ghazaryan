@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karine Ghazaryan — Product Leader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #1A1714;
+    --ink: #FAF8F5;
+    --accent: #C8502A;
+    --accent2: #A83A18;
+    --muted: #8A8480;
+    --border: rgba(26,23,20,0.1);
+    --card-bg: rgba(26,23,20,0.03);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    background: rgba(250,248,245,0.85);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--cream); }
+  .nav-cta {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #FAF8F5;
+    background: var(--accent);
+    padding: 0.55rem 1.25rem;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--accent2); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(8rem, 18vw, 22rem);
+    font-weight: 800;
+    color: rgba(26,23,20,0.04);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.25rem;
+    color: var(--cream);
+    opacity: 0;
+    animation: fadeUp 0.9s 0.2s forwards;
+  }
+
+  .hero-name span { color: var(--accent); font-weight: 400; }
+
+  .hero-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(1rem, 2.2vw, 1.6rem);
+    font-weight: 300;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+    margin-top: 1.25rem;
+    max-width: 620px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.35s forwards;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--accent2);
+    font-weight: 400;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+
+  .btn-primary {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #FAF8F5;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); }
+
+  .btn-secondary {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--cream);
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--cream); transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    right: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    animation: fadeIn 1.2s 1s forwards;
+  }
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  /* STATS */
+  .stats-section {
+    padding: 5rem 3rem;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stats-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 3rem;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+
+  .stat-item {
+    padding: 2rem 2.5rem;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--cream);
+    letter-spacing: -0.02em;
+  }
+  .stat-number span { color: var(--accent); }
+  .stat-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin-top: 0.6rem;
+    line-height: 1.4;
+    max-width: 160px;
+  }
+
+  /* SECTION TEMPLATE */
+  .section {
+    padding: 6rem 3rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+
+  /* ABOUT / POSITIONING */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-statement {
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--cream);
+  }
+  .about-statement strong {
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tag:hover { border-color: var(--accent2); color: var(--accent2); }
+
+  .about-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .about-bullets li {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--muted);
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .about-bullets li:last-child { border-bottom: none; }
+  .bullet-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 0.4rem;
+    flex-shrink: 0;
+  }
+  .about-bullets li span { color: var(--cream); font-weight: 400; }
+
+  /* EXPERIENCE */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0 2.5rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .exp-item:first-child { border-top: 1px solid var(--border); }
+
+  .exp-left { padding-top: 0.2rem; }
+  .exp-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+  }
+  .exp-period {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+    letter-spacing: 0.04em;
+  }
+  .exp-domain {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: 0.6rem;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid rgba(200,80,42,0.3);
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  .exp-right { }
+  .exp-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.75rem;
+  }
+  .exp-desc {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    max-width: 560px;
+  }
+  .exp-wins {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .exp-win {
+    font-size: 0.78rem;
+    color: var(--cream);
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 0.35rem 0.8rem;
+  }
+  .exp-win strong {
+    color: var(--accent2);
+    font-weight: 500;
+  }
+
+  /* SKILLS */
+  .skills-section { background: rgba(26,23,20,0.02); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-cell {
+    background: var(--ink);
+    padding: 2rem;
+    transition: background 0.25s;
+  }
+  .skill-cell:hover { background: rgba(26,23,20,0.03); }
+  .skill-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .skill-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .skill-detail {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* DUAL PURPOSE */
+  .dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .dual-card {
+    background: var(--ink);
+    padding: 3.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+  }
+  .dual-card:hover { background: rgba(26,23,20,0.02); }
+
+  .dual-card-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 6rem;
+    font-weight: 800;
+    color: rgba(26,23,20,0.04);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .dual-card-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .dual-card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+  }
+  .dual-card-body {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 2rem;
+    max-width: 340px;
+  }
+  .dual-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .dual-list li {
+    font-size: 0.8rem;
+    color: var(--cream);
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+  }
+  .dual-list li::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 7rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200,80,42,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .cta-headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .cta-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-email {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2rem;
+  }
+  .cta-email a { color: var(--accent2); text-decoration: none; }
+  .cta-email a:hover { color: var(--cream); }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .footer-right {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* DIVIDER LINE */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .stats-grid { grid-template-columns: repeat(2,1fr); }
+    .stat-item { padding: 1.5rem; }
+    .stat-item:first-child { padding-left: 1.5rem; }
+    .section { padding: 4rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .skills-grid { grid-template-columns: repeat(2,1fr); }
+    .dual-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 5rem 1.5rem; }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">KG</a>
+  <ul class="nav-links">
+    <li><a href="#about">Expertise</a></li>
+    <li><a href="#about">Story</a></li>
+    <li><a href="#experience">Career</a></li>
+    <li><a href="#services">Work Together</a></li>
+  </ul>
+  <a href="https://www.linkedin.com/in/karineghazaryan/" target="_blank" class="nav-cta">Connect on LinkedIn</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">PRODUCT</div>
+
+  <div style="max-width: 820px;">
+    <div class="hero-eyebrow">Director of Product Management · MarTech · AdTech · Market Research</div>
+
+    <h1 class="hero-name">
+      Karine <span>Ghazaryan</span>
+    </h1>
+
+    <p class="hero-title" style="margin-top: 1.5rem;">
+      I build platforms that turn audience data into <em>actionable decisions</em> — across market research, AdTech, and consumer intelligence. The output isn't a dashboard. It's a decision.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#about" class="btn-primary">Read My Story</a>
+      <a href="#services" class="btn-secondary">Work With Me</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span class="scroll-line"></span>
+    Scroll
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section skills-section">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">Expertise</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cell">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">Market Research Platforms</div>
+      <div class="skill-detail">Survey tech, panel management, programmatic sample, brand measurement, NPS systems. Deep domain fluency in the insights SaaS stack.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">AdTech & Audience Data</div>
+      <div class="skill-detail">Behavioral tracking, cross-device identity, 1P data strategy, audience intelligence. Built the data layer that made cross-platform behavioral tracking possible.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">AI-Powered Insights</div>
+      <div class="skill-detail">LLMs, NLP, sentiment analysis, API integrations (Twilio, OpenAI, IBM Watson). Built AI research tools before it was a headline.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">Marketing & GTM</div>
+      <div class="skill-detail">Came up through design, advertising, and paid media. Google Ads, Meta, affiliate, brand architecture, product positioning — understand what marketing actually needs from the platform.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">Platform Transformation</div>
+      <div class="skill-detail">Took Fuel Cycle from community-dependent to channel-agnostic. Productization, self-serve, PLG, monolith → microservices. 0→1 twice — joined before the product existed both times.</div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-icon">⬡</div>
+      <div class="skill-name">Data to Decision</div>
+      <div class="skill-detail">Built platforms where the output isn't a dashboard — it's a decision. Pattern recognition, reporting, recommendations, and actionable insights at enterprise scale.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT / STORY -->
+<section class="section" id="about">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">The story</h2>
+  </div>
+
+  <p class="about-statement" style="max-width:800px; margin-bottom: 1.5rem;">
+    I build platforms that turn audience data into <strong>actionable decisions</strong>.
+  </p>
+
+  <p class="about-statement" style="max-width:800px; margin-bottom: 1.5rem; font-size: clamp(1rem,1.6vw,1.2rem); font-weight:300; color: var(--muted);">
+    I've spent my career in data-first companies where owning the data isn't enough — you have to analyze it, find the patterns, and turn them into recommendations that drive action. That's shaped how I think about every product I build: <span style="color:var(--cream); font-weight:400;">the output isn't a dashboard, it's a decision.</span>
+  </p>
+
+  <p class="about-statement" style="max-width:800px; margin-bottom: 3.5rem; font-size: clamp(1rem,1.6vw,1.2rem); font-weight:300; color: var(--muted);">
+    What makes me different: I came up through <span style="color:var(--cream); font-weight:400;">design, advertising, and paid media</span> before moving into product — so I understand what marketing and research teams actually need, not just what engineers can build. 10+ years across market research SaaS, AdTech, and consumer intelligence. Six platforms shipped.
+  </p>
+
+  <!-- FOUR ACTS -->
+  <div style="display:flex; flex-direction:column; gap:0; border-top: 1px solid var(--border);">
+
+    <!-- ACT 1 -->
+    <div style="display:grid; grid-template-columns: 180px 1fr; gap: 3rem; padding: 2.5rem 0 2.5rem 1.5rem; border-bottom: 1px solid var(--border);">
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Act 01</div>
+        <div style="font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--cream); line-height:1.2;">Building order<br>from chaos</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-top:0.5rem;">2019 — Pre-COVID</div>
+      </div>
+      <div>
+        <p style="font-size:0.9rem; color:var(--muted); line-height:1.7; max-width:600px;">
+          I joined Fuel Cycle as the only product manager — walking into a pure firefighting culture. No Agile, no engineering–product process, no roadmap culture. Everything reactive. <span style="color:var(--cream);">I built the product-led organization from the ground up</span> — workflows, Agile development, prioritization systems, cross-functional operating model. Then I turned my attention to the platform itself: a powerful but deeply complex community research tool built exclusively for professional market researchers. I democratized it — <span style="color:var(--cream);">expanding the target user from market researchers to UX teams, product managers, HR, and marketing</span> — making research a capability every function could run independently.
+        </p>
+      </div>
+    </div>
+
+    <!-- ACT 2 -->
+    <div style="display:grid; grid-template-columns: 180px 1fr; gap: 3rem; padding: 2.5rem 0 2.5rem 1.5rem; border-bottom: 1px solid var(--border);">
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Act 02</div>
+        <div style="font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--cream); line-height:1.2;">Growing during<br>COVID</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-top:0.5rem;">2020 — 2021</div>
+      </div>
+      <div>
+        <p style="font-size:0.9rem; color:var(--muted); line-height:1.7; max-width:600px;">
+          While SaaS companies bled revenue, Fuel Cycle grew. We had a native video conversation tool embedded inside the platform — purpose-built for market research, where interviews and focus group recordings fed directly into insights and reporting without any tool-stitching. When remote work became mandatory and researchers couldn't conduct in-person studies, <span style="color:var(--cream);">we were already there</span>. I partnered with sales to aggressively pitch this capability to new departments and buyers. The result: highest platform engagement in company history, upsells into new business units, and client retention near 98%. Simultaneously, I used this window to lead the architectural shift of <span style="color:var(--cream);">breaking the monolith into microservices</span> — the structural foundation that made everything that followed possible.
+        </p>
+        <div class="exp-wins" style="margin-top:1rem;">
+          <div class="exp-win"><strong>98%</strong> client retention</div>
+          <div class="exp-win">Highest ever platform engagement</div>
+          <div class="exp-win">Monolith → microservices</div>
+          <div class="exp-win">Revenue growth vs. industry decline</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT 3 -->
+    <div style="display:grid; grid-template-columns: 180px 1fr; gap: 3rem; padding: 2.5rem 0 2.5rem 1.5rem; border-bottom: 1px solid var(--border);">
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Act 03</div>
+        <div style="font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--cream); line-height:1.2;">Expanding who<br>research serves</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-top:0.5rem;">Post-COVID · New categories</div>
+      </div>
+      <div>
+        <p style="font-size:0.9rem; color:var(--muted); line-height:1.7; max-width:600px;">
+          Post-COVID, I introduced an entirely new user category: <span style="color:var(--cream);">product beta testers</span>. Working with Philips, I enabled their teams to run real product testing — smart bulbs, physical hardware — through the platform. Testers submitted structured feedback that flowed directly into Jira, landing in engineering and product teams as actionable tickets. Same model with Amazon Alexa and Sonos. This wasn't just a new use case — it required building <span style="color:var(--cream);">multi-level user management and permissioning</span> into the platform architecture, and opened a completely new enterprise buyer: the product team, not just the research team.
+        </p>
+        <div class="exp-wins" style="margin-top:1rem;">
+          <div class="exp-win">Philips product testing</div>
+          <div class="exp-win">Amazon Alexa</div>
+          <div class="exp-win">Sonos · Carhartt</div>
+          <div class="exp-win">Jira integration layer</div>
+          <div class="exp-win">Multi-tier user management</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACT 4 -->
+    <div style="display:grid; grid-template-columns: 180px 1fr; gap: 3rem; padding: 2.5rem 0 2.5rem 1.5rem;">
+      <div>
+        <div style="font-family:'Syne',sans-serif; font-size:0.65rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:0.5rem;">Act 04</div>
+        <div style="font-family:'Syne',sans-serif; font-size:1rem; font-weight:800; color:var(--cream); line-height:1.2;">A new era<br>for research</div>
+        <div style="font-size:0.72rem; color:var(--muted); margin-top:0.5rem;">The Research Engine · AI · Autonomous Insights</div>
+      </div>
+      <div>
+        <p style="font-size:0.9rem; color:var(--muted); line-height:1.7; max-width:600px;">
+          The final act was the biggest: a completely new platform era. I led the architecture of the <span style="color:var(--cream);">Research Engine</span> — solving three problems at once. First, <span style="color:var(--cream);">templated research automation</span>: plug-and-play methodology templates so anyone could design and launch studies without a research agency — cutting weeks of setup to hours. Second, <span style="color:var(--cream);">audience flexibility beyond community</span>: researchers could now run studies inside their community, distribute a link anywhere, or purchase a targeted audience through the Fuel Cycle Audience Network — and compare all three side by side, quant and qual in one place. Third, the <span style="color:var(--cream);">AI layer</span>: moving from manual analysis to autonomous insights — AI that proactively detects research gaps, initiates studies, synthesizes unstructured data, and delivers branded reports and executive summaries automatically. What I built became what Fuel Cycle calls today their <em>Autonomous Insights platform</em> — 85% faster, 10× cheaper, 5× more studies per quarter.
+        </p>
+        <div class="exp-wins" style="margin-top:1rem;">
+          <div class="exp-win"><strong>$6M</strong> new profit, year one</div>
+          <div class="exp-win"><strong>33%</strong> revenue via PLG</div>
+          <div class="exp-win"><strong>NPS 9</strong> platform launch</div>
+          <div class="exp-win"><strong>~2%</strong> churn</div>
+          <div class="exp-win">Autonomous Insights shipped</div>
+          <div class="exp-win">Audience Network launched</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:3rem;">
+    <div class="about-tags">
+      <span class="tag">Market Research SaaS</span>
+      <span class="tag">AdTech</span>
+      <span class="tag">MarTech</span>
+      <span class="tag">Survey Platforms</span>
+      <span class="tag">Audience Intelligence</span>
+      <span class="tag">Behavioral Data</span>
+      <span class="tag">Campaign Analytics</span>
+      <span class="tag">AI / NLP</span>
+      <span class="tag">Paid Media</span>
+      <span class="tag">GTM Strategy</span>
+      <span class="tag">PLG</span>
+      <span class="tag">0 → 1</span>
+      <span class="tag">Data-to-Decision</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Career</h2>
+  </div>
+
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company">Fuel Cycle</div>
+        <div class="exp-period">2019 — Present</div>
+        <div class="exp-domain">Market Research SaaS</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Director of Product Management</div>
+        <div class="exp-desc">First and only PM hired to build the product org at a fast-growing market research SaaS. Over 6 years, led two parallel tracks: organizational transformation (Agile, product culture, team scaling) and platform reinvention (community research → autonomous insights platform with AI, self-serve, and multi-audience access). Enterprise clients: Amazon Alexa, Philips, Target, Sonos, Carhartt.</div>
+        <div class="exp-wins">
+          <div class="exp-win"><strong>$6M</strong> new profit, year one</div>
+          <div class="exp-win"><strong>33%</strong> revenue growth via PLG</div>
+          <div class="exp-win"><strong>NPS 9</strong> platform launch</div>
+          <div class="exp-win"><strong>~2%</strong> churn</div>
+          <div class="exp-win"><strong>10-person</strong> org built</div>
+          <div class="exp-win"><strong>98%</strong> COVID retention</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company">DISQO</div>
+        <div class="exp-period">2016 — 2019</div>
+        <div class="exp-domain">AdTech · Consumer Intelligence</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Product Marketing Manager → Senior Product Manager</div>
+        <div class="exp-desc">Joined Blue Media Ventures as an early team member — before the company had a unified identity. The business had two separate parts: ActiveMeasure (B2B studies, client-facing research) and Survey Junkie (consumer panel). Contributed to growing the panel, building marketing from scratch, and ultimately leading the product work that brought everything together — including the rebrand to DISQO. Key contributions: pitched and launched the Survey Junkie mobile app to solve panel drop-off and enable mobile behavioral tracking; brought in Pollfish for mobile-native survey capability; and helped advance the cross-device behavioral tracking product that became DISQO's core AdTech data offering — connecting desktop and mobile behavior to build cross-platform audience intelligence for brand clients.</div>
+        <div class="exp-wins">
+          <div class="exp-win"><strong>1.2M</strong> users in 6 months</div>
+          <div class="exp-win"><strong>20%</strong> retention increase</div>
+          <div class="exp-win">Cross-device behavioral tracking</div>
+          <div class="exp-win">DISQO rebrand led</div>
+          <div class="exp-win">Pollfish mobile integration</div>
+          <div class="exp-win"><strong>16 engineers</strong> across 2 countries</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company">Apeiron Data Systems</div>
+        <div class="exp-period">2015 — 2016</div>
+        <div class="exp-domain">Enterprise Storage Tech</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Product Marketing Manager</div>
+        <div class="exp-desc">Owned product strategy and PMF for Apeiron's Direct Scale-Out Flash solution. Built customer feedback loops and iterated on pricing and positioning to drive adoption.</div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-left">
+        <div class="exp-company">Ameria Group</div>
+        <div class="exp-period">2012 — 2015</div>
+        <div class="exp-domain">B2B / B2C Financial Products</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Senior Project Manager</div>
+        <div class="exp-desc">Led 100+ product and marketing initiatives across Corporate Banking, Retail, and Innovation. Reduced vendor and marketing costs 25% through process optimization.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DUAL PURPOSE -->
+<section class="section" id="services">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">How we can work together</h2>
+  </div>
+  <div class="dual-grid">
+    <div class="dual-card">
+      <div class="dual-card-num">01</div>
+      <div class="dual-card-label">For companies hiring</div>
+      <div class="dual-card-title">Director of Product Management</div>
+      <div class="dual-card-body">Building platforms in MarTech, AdTech, or Market Research SaaS? I bring deep domain experience across survey panels, audience intelligence, behavioral data, and AI-powered insights — with a track record of transforming complex platforms into scalable, revenue-generating products.</div>
+      <ul class="dual-list">
+        <li>Survey, panel & behavioral tracking platforms</li>
+        <li>AI/NLP product experience — shipped, not theoretical</li>
+        <li>Built product orgs from 1 to 10+</li>
+        <li>$6M revenue impact in year one from product packaging</li>
+      </ul>
+    </div>
+    <div class="dual-card">
+      <div class="dual-card-num">02</div>
+      <div class="dual-card-label">For companies needing a fractional partner</div>
+      <div class="dual-card-title">Fractional PM & AI Automation Consulting</div>
+      <div class="dual-card-body">10+ years of hands-on product strategy without the full-time cost. I help MarTech and insights companies define roadmaps, launch products, and build AI-powered workflows that replace manual processes.</div>
+      <ul class="dual-list">
+        <li>Product strategy & roadmap definition</li>
+        <li>AI automation (Make.com, Clay, APIs)</li>
+        <li>PLG design & monetization strategy</li>
+        <li>Go-to-market for new features or products</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contact">
+  <div class="cta-bg"></div>
+  <div class="cta-eyebrow">Let's connect</div>
+  <h2 class="cta-headline">Ready to build<br>something real?</h2>
+  <p class="cta-sub">Building something in market research, AdTech, or MarTech? Or need a senior product partner who can move fast? Let's talk about what you're working on.</p>
+  <div class="cta-actions">
+    <a href="https://www.linkedin.com/in/karineghazaryan/" target="_blank" class="btn-primary">Connect on LinkedIn</a>
+    <a href="mailto:karine.ghazaryan@gmail.com" class="btn-secondary">Send an Email</a>
+  </div>
+  <div class="cta-email" style="margin-top:2rem;">
+    Or reach me directly at <a href="mailto:karine.ghazaryan@gmail.com">karine.ghazaryan@gmail.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Karine Ghazaryan</div>
+  <div class="footer-right">West Hills, CA · Open to remote</div>
+</footer>
+
+</body>
+</html>
